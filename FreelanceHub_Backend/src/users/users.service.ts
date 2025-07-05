@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { User, UserDocument } from './user.model';
+import { User, UserDocument } from './user.schema';
 import { Model } from 'mongoose';
 
 @Injectable()
@@ -12,5 +12,19 @@ export class UsersService {
   }
   async create(data: Partial<User>): Promise<UserDocument> {
     return this.userModel.create(data);
+  }
+
+  async findById(id: string) {
+    const user = await this.userModel.findById(id).select('-password');
+    if (!user) throw new NotFoundException('User not found');
+    return user;
+  }
+
+  async updateUser(id: string, updateData: Partial<User>) {
+    const user = await this.userModel.findByIdAndUpdate(id, updateData, {
+      new: true,
+    });
+    if (!user) throw new NotFoundException('User not found');
+    return user;
   }
 }

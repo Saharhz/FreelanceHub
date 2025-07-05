@@ -6,6 +6,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { EmailService } from './email/email.service';
+import { JobsModule } from './jobs/jobs.module';
+import { JobController } from './job/job.controller';
 
 @Module({
   imports: [
@@ -15,8 +17,10 @@ import { EmailService } from './email/email.service';
     MongooseModule.forRoot(process.env.MONGODB_URI as string),
     AuthModule,
     UsersModule,
+    JobsModule,
   ],
   providers: [EmailService],
   exports: [EmailService],
+  controllers: [JobController],
 })
 export class AppModule {}

@@ -10,7 +10,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
-import { User, UserDocument } from '../users/user.model';
+import { User, UserDocument } from '../users/user.schema';
 import { RegisterDto, LoginDto } from './schemas/auth.schemas';
 import { EmailService } from 'src/email/email.service';
 
@@ -36,12 +36,16 @@ export class AuthService {
       plan: 'free',
     });
 
+    await user.save();
+
+    console.log('Register method called with data:', data);
+
     const verifyToken = this.jwtService.sign(
       { sub: user._id },
       { expiresIn: '1d' },
     );
 
-    const verifyLink = `http://localhost:3000/auth/verify?token=${verifyToken}`;
+    const verifyLink = `${process.env.FRONTEND_URL}/auth/verify?token=${verifyToken}`;
 
     await this.emailService.sendVerificationEmail(user.email, verifyLink);
 
