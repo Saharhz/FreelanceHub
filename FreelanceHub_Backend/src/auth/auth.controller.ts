@@ -34,6 +34,7 @@ export class AuthController {
 
   @Post('login')
   async login(@Body() body: any) {
+    console.log('Login payload:', body);
     const parsed = LoginSchema.safeParse(body);
 
     if (!parsed.success) {

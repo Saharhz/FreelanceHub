@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import Link from "next/link";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -64,6 +65,12 @@ export default function LoginPage() {
         <Button type="submit" disabled={isSubmitting} className="w-full">
           {isSubmitting ? "Logging in..." : "Login"}
         </Button>
+        <Link
+          href="/auth/register"
+          className="block text-center text-blue-600 hover:underline"
+        >
+          Don't have an account? Sign Up now
+        </Link>
       </form>
     </div>
   );

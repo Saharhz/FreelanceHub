@@ -8,6 +8,7 @@ import instance from "@/lib/lib.axios";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { logout } from "@/lib/lib.auth";
+import Link from "next/link";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -138,6 +139,12 @@ export default function ProfilePage() {
         <Button variant="destructive" onClick={logout}>
           Logout
         </Button>
+        <Link
+          href="/dashboard/jobs"
+          className="block text-center text-blue-600 hover:underline mt-6"
+        >
+          Jobs You Might Like
+        </Link>
       </form>
     </div>
   );

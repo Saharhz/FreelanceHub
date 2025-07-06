@@ -2,7 +2,7 @@ import axios from "axios";
 import type { AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:5001", // ✅ backend
+  baseURL: "http://localhost:5001", // backend
   withCredentials: true, // use only if cookies
 });
 

@@ -22,8 +22,8 @@ import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guards';
 export class JobsController {
   constructor(private readonly jobsService: JobsService) {}
 
-  @Roles('client')
   @Post()
+  @Roles('client')
   async create(@Req() req, @Body() body) {
     const parse = CreateJobZod.safeParse(body);
     if (!parse.success) throw new BadRequestException(parse.error.format());
@@ -41,8 +41,8 @@ export class JobsController {
     return this.jobsService.getJobById(id);
   }
 
-  @Roles('client')
   @Put(':id')
+  @Roles('client')
   async update(@Req() req, @Param('id') id: string, @Body() body) {
     const parse = UpdateJobZod.safeParse(body);
     if (!parse.success) throw new BadRequestException(parse.error.format());
@@ -50,9 +50,11 @@ export class JobsController {
     return this.jobsService.updateJob(id, req.user._id, parse.data);
   }
 
-  @Roles('client')
   @Delete(':id')
+  @Roles('client')
   async remove(@Req() req, @Param('id') id: string) {
+    console.log('👤 Authenticated User:', req.user);
+    const userId = req.user['sub'];
     return this.jobsService.deleteJob(id, req.user._id);
   }
 }

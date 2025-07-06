@@ -20,15 +20,16 @@ import {
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get('me')
+  @UseGuards(JwtAuthGuard)
   async getMe(@Req() req: Request) {
-    const userId = req.user['sub'];
+    console.log('👤 Current user in /me:', req.user);
+    const userId = req.user['_id'];
     return this.usersService.findById(userId);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Patch('me')
+  @UseGuards(JwtAuthGuard)
   @UsePipes(new ZodValidationPipe(UpdateUserSchema))
   async updateMe(@Req() req: Request, @Body() body: UpdateUserDto) {
     const userId = req.user['sub'];

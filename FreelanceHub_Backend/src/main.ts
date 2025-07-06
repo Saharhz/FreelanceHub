@@ -20,7 +20,7 @@ async function bootstrap() {
     credentials: true,
   });
 
-  app.useGlobalGuards(new JwtAuthGuard(), new RolesGuard(new Reflector()));
+  // app.useGlobalGuards(new JwtAuthGuard(), new RolesGuard(new Reflector()));
 
   await app.listen(process.env.PORT ?? 5001);
 }

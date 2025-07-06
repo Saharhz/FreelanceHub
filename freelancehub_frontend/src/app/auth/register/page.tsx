@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import axios from "@/lib/lib.axios";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const registerSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -83,6 +84,12 @@ export default function RegisterPage() {
         <Button type="submit" disabled={isSubmitting} className="w-full">
           {isSubmitting ? "Creating account..." : "Register"}
         </Button>
+        <Link
+          href="/auth/login"
+          className="block text-center text-blue-600 hover:underline"
+        >
+          Do you have an account?
+        </Link>
       </form>
     </div>
   );
