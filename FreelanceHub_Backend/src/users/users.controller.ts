@@ -6,6 +6,7 @@ import {
   Req,
   Body,
   UsePipes,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Request } from 'express';
@@ -15,6 +16,7 @@ import {
   UpdateUserDto,
   UpdateUserSchema,
 } from 'src/validators/update-user.schema';
+import { Roles } from 'src/common/decorators/roles.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -24,15 +26,27 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   async getMe(@Req() req: Request) {
     console.log('👤 Current user in /me:', req.user);
-    const userId = req.user['_id'];
+    const userId = req.user.sub;
     return this.usersService.findById(userId);
+  }
+
+  @Get('me/proposals')
+  @UseGuards(JwtAuthGuard)
+  @Roles('freelancer')
+  async getMyProposals(@Req() req: any) {
+    return this.usersService.findProposalsByUser(req.user.sub);
   }
 
   @Patch('me')
   @UseGuards(JwtAuthGuard)
   @UsePipes(new ZodValidationPipe(UpdateUserSchema))
   async updateMe(@Req() req: Request, @Body() body: UpdateUserDto) {
-    const userId = req.user['sub'];
+    const userId = req.user.sub;
+    console.log('👤 Token payload:', req.user);
+    console.log('📥 Reached updateMe endpoint');
+    console.log('📝 Update body:', body);
+    if (!userId) throw new UnauthorizedException('Invalid token payload');
+
     const updatedBody = {
       ...body,
       skills:

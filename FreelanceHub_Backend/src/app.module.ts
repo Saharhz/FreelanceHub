@@ -8,6 +8,9 @@ import { UsersModule } from './users/users.module';
 import { EmailService } from './email/email.service';
 import { JobsModule } from './jobs/jobs.module';
 // import { JobsController } from './jobs/jobs.controller';
+import { ProposalsService } from './proposals/proposals.service';
+import { ProposalsModule } from './proposals/proposals.module';
+import { SubmissionsModule } from './submissions/submissions.module';
 
 @Module({
   imports: [
@@ -18,8 +21,10 @@ import { JobsModule } from './jobs/jobs.module';
     AuthModule,
     UsersModule,
     JobsModule,
+    ProposalsModule,
+    SubmissionsModule,
   ],
-  providers: [EmailService],
+  providers: [EmailService, ProposalsService],
   exports: [EmailService],
   // controllers: [JobsController],
 })

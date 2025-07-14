@@ -9,6 +9,7 @@ import {
   Param,
   Put,
   Delete,
+  Patch,
 } from '@nestjs/common';
 import { JobsService } from './jobs.service';
 import { CreateJobZod } from './dto/create-job.dto';
@@ -41,11 +42,12 @@ export class JobsController {
     return this.jobsService.getJobById(id);
   }
 
-  @Put(':id')
+  @Patch(':id')
   @Roles('client')
   async update(@Req() req, @Param('id') id: string, @Body() body) {
     const parse = UpdateJobZod.safeParse(body);
     if (!parse.success) throw new BadRequestException(parse.error.format());
+    console.log('PATCH /jobs/:id payload', body);
 
     return this.jobsService.updateJob(id, req.user._id, parse.data);
   }

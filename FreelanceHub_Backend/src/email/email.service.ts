@@ -19,7 +19,7 @@ export class EmailService {
       console.log(`🔗 Link: ${link}`);
 
       const response = await this.client.sendTransacEmail({
-        sender: { name: 'Freelance Hub', email: 'your_email@example.com' },
+        sender: { name: 'Freelance Hub', email: 'sahar.h.z1987@gmail.com' },
         to: [{ email: to }],
         subject: 'Verify your FreelanceHub account',
         htmlContent: `

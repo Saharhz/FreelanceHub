@@ -9,6 +9,8 @@ import axios from "@/lib/lib.axios";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Input } from "@/components/ui/input";
+import { Label } from "@radix-ui/react-label";
 
 const registerSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -46,28 +48,28 @@ export default function RegisterPage() {
       <h1 className="text-2xl font-bold mb-6">Create an Account</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
-          <label htmlFor="name">Name</label>
-          <input type="text" id="name" defaultValue="" {...register("name")} />
+          <Label htmlFor="name">Name</Label>
+          <Input type="text" id="name" defaultValue="" {...register("name")} />
           {errors.name && (
             <p className="text-sm text-red-500">{errors.name.message}</p>
           )}
         </div>
         <div>
-          <label htmlFor="email">Email</label>
-          <input type="email" id="email" {...register("email")} />
+          <Label htmlFor="email">Email</Label>
+          <Input type="email" id="email" {...register("email")} />
           {errors.email && (
             <p className="text-sm text-red-500">{errors.email.message}</p>
           )}
         </div>
         <div>
-          <label htmlFor="password">Password</label>
-          <input type="password" id="password" {...register("password")} />
+          <Label htmlFor="password">Password</Label>
+          <Input type="password" id="password" {...register("password")} />
           {errors.password && (
             <p className="text-sm text-red-500">{errors.password.message}</p>
           )}
         </div>
         <div>
-          <label htmlFor="role">Role</label>
+          <Label htmlFor="role">Role</Label>
           <select
             id="role"
             {...register("role")}

@@ -1,16 +1,16 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import axios from "@/lib/lib.axios";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import Link from "next/link";
+import { signIn, useSession } from "next-auth/react";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -23,6 +23,7 @@ type LoginForm = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
   const router = useRouter();
+  const [loginError, setLoginError] = useState("");
   const {
     register,
     handleSubmit,
@@ -32,16 +33,28 @@ export default function LoginPage() {
   });
 
   const onSubmit = async (data: LoginForm) => {
-    try {
-      const res = await axios.post("/auth/login", data);
-      toast.success("Login successful");
-      localStorage.setItem("token", res.data.access_token);
+    setLoginError("");
+    const res = await signIn("credentials", {
+      redirect: false,
+      email: data.email,
+      password: data.password,
+    });
+
+    console.log("Login response:", res);
+
+    // if (res?.error) {
+    //   console.error("Login error:", res.error);
+    // }
+
+    if (res?.ok) {
       router.push("/dashboard/profile");
-    } catch (err: any) {
-      console.error("Login error:", err);
-      toast.error(err.response?.data?.message || "Login failed");
+    } else {
+      toast.error(res?.error || "Email or password is incorrect");
     }
   };
+
+  const { data: session, status } = useSession();
+
   return (
     <div className="max-w-md mx-auto py-10">
       <h1 className="text-2xl font-bold mb-6">Login</h1>

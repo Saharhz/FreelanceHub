@@ -21,7 +21,7 @@ export class AuthController {
 
   @Post('register')
   async register(@Body() body: any) {
-    console.log('📥 Incoming register request:', body);
+    console.log('Incoming register request:', body);
     const parsed = RegisterSchema.safeParse(body);
 
     if (!parsed.success) {
