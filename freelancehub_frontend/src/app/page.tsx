@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       <header className="p-4 border-b flex justify-between items-center">
-        <h1 className="text-xl font-bold">FreelanceHub</h1>
+        <h1 className="text-xl font-bold">FreelancerHub</h1>
         <div className="space-x-2">
           <Link href="/auth/login">
             <Button variant="outline">Login</Button>
@@ -22,7 +22,7 @@ export default function Home() {
             Find the right talent — or your next job
           </h2>
           <p className="text-lg text-gray-600 mb-6">
-            Join FreelanceHub and connect with top clients and freelancers
+            Join FreelancerHub and connect with top clients and freelancers
             around the world.
           </p>
           <Link href="/auth/register">
