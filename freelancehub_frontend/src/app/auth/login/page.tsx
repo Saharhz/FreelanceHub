@@ -56,35 +56,54 @@ export default function LoginPage() {
   const { data: session, status } = useSession();
 
   return (
-    <div className="max-w-md mx-auto py-10">
-      <h1 className="text-2xl font-bold mb-6">Login</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div>
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" {...register("email")} />
-          {errors.email && (
-            <p className="text-sm text-red-500">{errors.email.message}</p>
-          )}
-        </div>
+    <div className="h-[50rem] rounded-md w-full bg-neutral-950 mx-auto py-10">
+      <div className="max-w-md mx-auto py-10">
+        <h1 className="text-2xl font-bold mb-6 text-neutral-500">Login</h1>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div>
+            <Label htmlFor="email" className="text-neutral-500 font-medium p-2">
+              Email
+            </Label>
+            <Input
+              id="email"
+              type="email"
+              {...register("email")}
+              className="text-neutral-100"
+            />
+            {errors.email && (
+              <p className="text-sm text-red-500">{errors.email.message}</p>
+            )}
+          </div>
 
-        <div>
-          <Label htmlFor="password">Password</Label>
-          <Input id="password" type="password" {...register("password")} />
-          {errors.password && (
-            <p className="text-sm text-red-500">{errors.password.message}</p>
-          )}
-        </div>
+          <div>
+            <Label
+              htmlFor="password"
+              className="text-neutral-500 font-medium p-2"
+            >
+              Password
+            </Label>
+            <Input
+              id="password"
+              type="password"
+              {...register("password")}
+              className="text-neutral-100"
+            />
+            {errors.password && (
+              <p className="text-sm text-red-500">{errors.password.message}</p>
+            )}
+          </div>
 
-        <Button type="submit" disabled={isSubmitting} className="w-full">
-          {isSubmitting ? "Logging in..." : "Login"}
-        </Button>
-        <Link
-          href="/auth/register"
-          className="block text-center text-blue-600 hover:underline"
-        >
-          Don't have an account? Sign Up now
-        </Link>
-      </form>
+          <Button type="submit" disabled={isSubmitting} className="w-full">
+            {isSubmitting ? "Logging in..." : "Login"}
+          </Button>
+          <Link
+            href="/auth/register"
+            className="block text-center text-blue-600 hover:underline"
+          >
+            Don't have an account? Sign Up now
+          </Link>
+        </form>
+      </div>
     </div>
   );
 }

@@ -44,55 +44,85 @@ export default function RegisterPage() {
     }
   };
   return (
-    <div className="max-w-md mx-auto py-10">
-      <h1 className="text-2xl font-bold mb-6">Create an Account</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div>
-          <Label htmlFor="name">Name</Label>
-          <Input type="text" id="name" defaultValue="" {...register("name")} />
-          {errors.name && (
-            <p className="text-sm text-red-500">{errors.name.message}</p>
-          )}
-        </div>
-        <div>
-          <Label htmlFor="email">Email</Label>
-          <Input type="email" id="email" {...register("email")} />
-          {errors.email && (
-            <p className="text-sm text-red-500">{errors.email.message}</p>
-          )}
-        </div>
-        <div>
-          <Label htmlFor="password">Password</Label>
-          <Input type="password" id="password" {...register("password")} />
-          {errors.password && (
-            <p className="text-sm text-red-500">{errors.password.message}</p>
-          )}
-        </div>
-        <div>
-          <Label htmlFor="role">Role</Label>
-          <select
-            id="role"
-            {...register("role")}
-            className="w-full border px-3 py-2 rounded-md"
+    <div className="h-[50rem] rounded-md w-full bg-neutral-950 mx-auto py-10">
+      <div className="max-w-md mx-auto py-10">
+        <h1 className="text-2xl font-bold mb-6 text-neutral-500">
+          Create an Account
+        </h1>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div>
+            <Label htmlFor="name" className="text-neutral-500 font-medium">
+              Name
+            </Label>
+            <Input
+              type="text"
+              id="name"
+              defaultValue=""
+              {...register("name")}
+              className="text-neutral-100"
+            />
+            {errors.name && (
+              <p className="text-sm text-red-500">{errors.name.message}</p>
+            )}
+          </div>
+          <div>
+            <Label htmlFor="email" className="text-neutral-500 font-medium">
+              Email
+            </Label>
+            <Input
+              type="email"
+              id="email"
+              {...register("email")}
+              className="text-neutral-100"
+            />
+            {errors.email && (
+              <p className="text-sm text-red-500">{errors.email.message}</p>
+            )}
+          </div>
+          <div>
+            <Label htmlFor="password" className="text-neutral-500 font-medium">
+              Password
+            </Label>
+            <Input
+              type="password"
+              id="password"
+              {...register("password")}
+              className="text-neutral-100"
+            />
+            {errors.password && (
+              <p className="text-sm text-red-500">{errors.password.message}</p>
+            )}
+          </div>
+          <div>
+            <Label htmlFor="role" className="text-neutral-500 font-medium">
+              Role
+            </Label>
+            <select
+              id="role"
+              {...register("role")}
+              className="w-full border px-3 py-2 rounded-md text-neutral-500 font-medium"
+            >
+              <option value="" className="text-neutral-500 font-medium">
+                Select Role
+              </option>
+              <option value="client">Client</option>
+              <option value="freelancer">Freelancer</option>
+            </select>
+            {errors.role && (
+              <p className="text-sm text-red-500">{errors.role.message}</p>
+            )}
+          </div>
+          <Button type="submit" disabled={isSubmitting} className="w-full">
+            {isSubmitting ? "Creating account..." : "Register"}
+          </Button>
+          <Link
+            href="/auth/login"
+            className="block text-center text-blue-600 hover:underline"
           >
-            <option value="">Select Role</option>
-            <option value="client">Client</option>
-            <option value="freelancer">Freelancer</option>
-          </select>
-          {errors.role && (
-            <p className="text-sm text-red-500">{errors.role.message}</p>
-          )}
-        </div>
-        <Button type="submit" disabled={isSubmitting} className="w-full">
-          {isSubmitting ? "Creating account..." : "Register"}
-        </Button>
-        <Link
-          href="/auth/login"
-          className="block text-center text-blue-600 hover:underline"
-        >
-          Do you have an account?
-        </Link>
-      </form>
+            Do you have an account?
+          </Link>
+        </form>
+      </div>
     </div>
   );
 }

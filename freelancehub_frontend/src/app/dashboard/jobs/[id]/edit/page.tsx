@@ -1,10 +1,15 @@
 import { notFound } from "next/navigation";
-import { revalidatePath } from "next/cache";
 import EditJobForm from "@/components/forms/EditJobForm";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/lib.auth";
 
-async function getJob(id: string, token: string): Promise<any | null> {
+interface Job {
+  _id: string;
+  title: string;
+  description: string;
+}
+
+async function getJob(id: string, token: string): Promise<Job | null> {
   console.log("Server  Fetching job ID:", id);
   const res = await fetch(`http://localhost:5001/api/jobs/${id}`, {
     method: "GET",
@@ -27,6 +32,7 @@ export default async function EditJobPage({
 }) {
   const session = await getServerSession(authOptions);
   const accessToken = session?.accessToken as string;
+
   if (!accessToken) {
     return notFound();
   }
